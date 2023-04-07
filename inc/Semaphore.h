@@ -8,7 +8,7 @@
 #ifndef OS_SPEC_SEMAPHORE_H_
 #define OS_SPEC_SEMAPHORE_H_
 
-#include <stdint.h>
+#include "StandardInc.h"
 
 typedef struct
 {

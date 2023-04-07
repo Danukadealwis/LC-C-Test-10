@@ -10,7 +10,7 @@
 #ifndef OS_SPEC_THREAD_H_
 #define OS_SPEC_THREAD_H_
 
-#include <stdint.h>
+#include "StandardInc.h"
 
 typedef enum
 {
@@ -81,7 +81,7 @@ bool Thread_IsItTimeToExit(THREAD_TYPE *obj);
 
 // To wait for exiting from exec so the Thread_Destroy() can be called to clean up.
 // obj: pointer to the instance
-// waitSec: 0 to wait forever, or how many seconeds to wait for exec to come back.
+// waitSec: 0 to wait forever, or how many seconds to wait for exec to come back.
 //          Kill the thread if not come back in time but can cause memory leaks if not careful. 
 bool Thread_WaitFinished(THREAD_TYPE *obj,int waitSec);
 

@@ -6,7 +6,7 @@
  * Last Modified:
   */
 
-#include "SerialInterface.h"
+#include "../inc/SerialInterface.h"
 
 void SerialInterface_Construct(SERIAL_INTERFACE_TYPE *obj,const char *name,const ENUM_THREAD_PRIORITY_TYPE priority,int stackSize,
                                 void *owner,void (*callback)(const void*,const BYTE *,size_t))
