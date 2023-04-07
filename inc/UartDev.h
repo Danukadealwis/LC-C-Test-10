@@ -9,6 +9,7 @@
 #define UARTDev_H_
 
 #include "Semaphore.h"
+#include "StandardInc.h"
 
 typedef struct
 {

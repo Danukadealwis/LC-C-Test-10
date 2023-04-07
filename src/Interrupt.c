@@ -9,3 +9,5 @@ int32_t regRead(uint32_t addr){
     uint32_t *regAddr = &addr;
     return regAddr;
 }
+
+ void

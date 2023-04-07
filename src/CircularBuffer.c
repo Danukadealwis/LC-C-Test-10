@@ -77,12 +77,13 @@ static void advance_pointer(cbuf_handle_t handle)
 {
     assert(handle);
 
-    if (++(handle->head) == handle->max)
+    handle->head = handle->head+1;
+
+    if (handle->head  == handle->max)
     {
         handle->head = 0;
     }
 
-    handle->head = (handle->head + 1) % handle->max;
     handle->full = (handle->head == handle->tail);
 }
 
@@ -97,25 +98,25 @@ static void retreat_pointer(cbuf_handle_t handle)
     }
 }
 
-void circular_buf_put(cbuf_handle_t me, circ_buf_data_type data)
+void circular_buf_put(cbuf_handle_t handle, circ_buf_data_type data)
 {
-    assert(me && me->buffer);
+    assert(handle && handle->buffer);
 
-    me->buffer[me->head] = data;
+    handle->buffer[handle->head] = data;
 
-    advance_pointer(me);
+    advance_pointer(handle);
 }
 
-int circular_buf_get(cbuf_handle_t me, circ_buf_data_type * data)
+int circular_buf_get(cbuf_handle_t handle, circ_buf_data_type * data)
 {
-    assert(me && data && me->buffer);
+    assert(handle && data && handle->buffer);
 
     int r = -1;
 
-    if(!circular_buf_empty(me))
+    if(!circular_buf_empty(handle))
     {
-        *data = me->buffer[me->tail];
-        retreat_pointer(me);
+        *data = handle->buffer[handle->tail];
+        retreat_pointer(handle);
 
         r = 0;
     }
