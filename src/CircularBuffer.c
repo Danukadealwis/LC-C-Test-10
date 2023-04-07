@@ -84,7 +84,7 @@ static void advance_pointer(cbuf_handle_t handle)
         handle->head = 0;
     }
 
-    handle->full = (handle->head == handle->tail);
+    if(!handle->full) handle->full = (handle->head == handle->tail);
 }
 
 static void retreat_pointer(cbuf_handle_t handle)

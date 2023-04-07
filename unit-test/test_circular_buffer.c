@@ -24,36 +24,47 @@ void tearDown(void)
 }
 
 void test_buf_put_get(){
+
     *uart_read_addr = 231;
     circular_buf_put(buffer_handle,*uart_read_addr);
     circ_buf_data_type data;
     circular_buf_get(buffer_handle,&data);
-
-
     TEST_ASSERT_EQUAL(231, data);
+
     *uart_read_addr = 199;
     circular_buf_put(buffer_handle,*uart_read_addr);
     circular_buf_get(buffer_handle,&data);
     TEST_ASSERT_EQUAL(199,data);
+
     circular_buf_reset(buffer_handle);
 }
 
-void test_buf_capacity(){
-    *uart_read_addr = 231;
+void test_buf_capacity_and_full(){
+    *uart_read_addr = 163;
     TEST_ASSERT_EQUAL(32,circular_buf_capacity(buffer_handle));
     int counter = 0;
-    while (counter < 32) {
+    while (counter != 33) {
         circular_buf_put(buffer_handle, *uart_read_addr);
         counter++;
     }
     TEST_ASSERT_EQUAL(true, circular_buf_full(buffer_handle));
 
+    circ_buf_data_type data;
+    circular_buf_get(buffer_handle,&data);
+    TEST_ASSERT_EQUAL(163, data);
+    TEST_ASSERT_EQUAL(false, circular_buf_full(buffer_handle));
+
+    circular_buf_reset(buffer_handle);
+}
+
+void test_buf_speed(){
 
 }
 
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_buf_put_get);
-    RUN_TEST(test_buf_capacity);
+    RUN_TEST(test_buf_capacity_and_full);
+    RUN_TEST(test_buf_speed);
     return UNITY_END();
 }
