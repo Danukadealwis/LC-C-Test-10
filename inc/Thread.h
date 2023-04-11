@@ -35,9 +35,9 @@ typedef struct
 // priority: thread priority (1 to 7 where 7 is the highest) 
 // stackSize: Number of DWORDs reserved for as the stack for this thread.
 // owner: the object instance needed to pass back to the exec below.
-// exec: (think od it as the virtual function for this object) is the call back rouinte for the thread.
+// exec: (think of it as the virtual function for this object) is the call back routine for the thread.
 //       Returns from this routine will have the OS calls back in again.
-//       The principle is not to stay in the exec forever and retuns from exec to allow thread health checks.
+//       The principle is not to stay in the exec forever and returns from exec to allow thread health checks.
 //       The owner object instance is passed as the single parameter when doing the call back.
 THREAD_TYPE *Thread_New(const char *name,const ENUM_THREAD_PRIORITY_TYPE priority,int stackSize,
                             void *owner,void (*exec)(void const *));
@@ -48,9 +48,9 @@ THREAD_TYPE *Thread_New(const char *name,const ENUM_THREAD_PRIORITY_TYPE priorit
 // priority: thread priority (1 to 7 where 7 is the highest) 
 // stackSize: Number of DWORDs reserved for as the stack for this thread.
 // owner: the object instance needed to pass back to the exec below.
-// exec: (think od it as the virtual function for this object) is the call back rouinte for the thread.
+// exec: (think od it as the virtual function for this object) is the call back routine for the thread.
 //       Returns from this routine will have the OS calls back in again.
-//       The principle is not to stay in the exec forever and retuns from exec to allow thread health checks.
+//       The principle is not to stay in the exec forever and returns from exec to allow thread health checks.
 //       The owner object instance is passed as the single parameter when doing the call back.
 void Thread_Construct(THREAD_TYPE *obj,const char *name,const ENUM_THREAD_PRIORITY_TYPE priority,int stackSize,
                             void *owner,void (*exec)(void const *));

@@ -1,5 +1,7 @@
 #include "StandardInc.h"
-#define circ_buf_data_type uint32_t
+#define circ_buf_data_type BYTE
+#define EXAMPLE_BUFFER_SIZE 32
+#define INPUT_DATA_TYPE BYTE
 struct circular_buf_t {
     circ_buf_data_type * buffer;
     size_t head;
@@ -19,7 +21,7 @@ void circular_buf_reset(cbuf_handle_t me);
 
 void circular_buf_put(cbuf_handle_t me, circ_buf_data_type data);
 
-int circular_buf_get(cbuf_handle_t me, circ_buf_data_type * data);
+bool circular_buf_get(cbuf_handle_t me, BYTE *data);
 
 bool circular_buf_empty(cbuf_handle_t me);
 

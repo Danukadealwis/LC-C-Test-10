@@ -1,9 +1,9 @@
 #include "unity/unity.h"
 #include "../inc/CircularBuffer.h"
-#define EXAMPLE_BUFFER_SIZE 32
+#include "time.h"
 
 static cbuf_handle_t buffer_handle;
-static uint8_t *uart_read_addr;
+static INPUT_DATA_TYPE *uart_read_addr;
 void setUp(void)
 {
     uart_read_addr = malloc(1);
@@ -41,9 +41,9 @@ void test_buf_put_get(){
 
 void test_buf_capacity_and_full(){
     *uart_read_addr = 163;
-    TEST_ASSERT_EQUAL(32,circular_buf_capacity(buffer_handle));
+    TEST_ASSERT_EQUAL(EXAMPLE_BUFFER_SIZE,circular_buf_capacity(buffer_handle));
     int counter = 0;
-    while (counter != 33) {
+    while (counter <= EXAMPLE_BUFFER_SIZE) {
         circular_buf_put(buffer_handle, *uart_read_addr);
         counter++;
     }
@@ -57,14 +57,27 @@ void test_buf_capacity_and_full(){
     circular_buf_reset(buffer_handle);
 }
 
-void test_buf_speed(){
+void test_buf_put_speed(){
 
+    *uart_read_addr = 163;
+
+    int counter = 0;
+    double time_spent = 0.0;
+    clock_t begin = clock();
+
+    while (counter < 115200/(sizeof(INPUT_DATA_TYPE)*8)){
+        circular_buf_put(buffer_handle, *uart_read_addr);
+        counter++;
+    }
+    clock_t end = clock();
+    time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+    TEST_ASSERT_LESS_OR_EQUAL(1, time_spent);
 }
 
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_buf_put_get);
     RUN_TEST(test_buf_capacity_and_full);
-    RUN_TEST(test_buf_speed);
+    RUN_TEST(test_buf_put_speed);
     return UNITY_END();
 }

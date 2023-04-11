@@ -4,3 +4,10 @@
 //    The Application module should also instantiate a thread (using Thread.c) to run once per second (use Sleep(1000)) to print out the number of bytes received in the last second.
 //    This bytes per second information needs to send out back through the SerialInterface.
 
+void application_init(){
+
+}
+
+void run_application(){
+
+}

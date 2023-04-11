@@ -107,20 +107,17 @@ void circular_buf_put(cbuf_handle_t handle, circ_buf_data_type data)
     advance_pointer(handle);
 }
 
-int circular_buf_get(cbuf_handle_t handle, circ_buf_data_type * data)
+bool circular_buf_get(cbuf_handle_t handle, BYTE *data)
 {
     assert(handle && data && handle->buffer);
-
-    int r = -1;
 
     if(!circular_buf_empty(handle))
     {
         *data = handle->buffer[handle->tail];
         retreat_pointer(handle);
-
-        r = 0;
+        return true;
     }
 
-    return r;
+    return false;
 }
 
